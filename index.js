@@ -1,15 +1,6 @@
-function removeNthFromEnd(head, n) {
-  const dummy = new ListNode(0);
-  dummy.next = head;
-  let first = dummy;
-  let second = dummy;
-  for (let i = 0; i <= n; i++) {
-    first = first.next;
+const factorialRecursive = (n) => {
+  if (n === 0 || n === 1) {
+    return 1;
   }
-  while (first !== null) {
-    first = first.next;
-    second = second.next;
-  }
-  second.next = second.next.next;
-  return dummy.next;
-}
+  return n * factorialRecursive(n - 1);
+};

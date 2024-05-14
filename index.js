@@ -1,16 +1,28 @@
-function numDecodings(s) {
-  const dp = new Array(s.length + 1).fill(0);
-  dp[0] = 1;
-  dp[1] = s[0] === "0" ? 0 : 1;
-  for (let i = 2; i <= s.length; i++) {
-    const oneDigit = parseInt(s.substring(i - 1, i));
-    const twoDigits = parseInt(s.substring(i - 2, i));
-    if (oneDigit >= 1) {
-      dp[i] += dp[i - 1];
+const pancakeSort = (arr) => {
+  const flip = (arr, k) => {
+    let i = 0;
+    while (i < k / 2) {
+      [arr[i], arr[k - i]] = [arr[k - i], arr[i]];
+      i++;
     }
-    if (twoDigits >= 10 && twoDigits <= 26) {
-      dp[i] += dp[i - 2];
+  };
+  const findMaxIndex = (arr, n) => {
+    let maxIndex = 0;
+    for (let i = 0; i < n; i++) {
+      if (arr[i] > arr[maxIndex]) {
+        maxIndex = i;
+      }
     }
+    return maxIndex;
+  };
+  let currentSize = arr.length;
+  while (currentSize > 1) {
+    const maxIndex = findMaxIndex(arr, currentSize);
+    if (maxIndex !== currentSize - 1) {
+      flip(arr, maxIndex);
+      flip(arr, currentSize - 1);
+    }
+    currentSize--;
   }
-  return dp[s.length];
-}
+  return arr;
+};

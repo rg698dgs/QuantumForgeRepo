@@ -1,13 +1,17 @@
-const bubbleSortOptimized = (arr) => {
-  let swapped;
-  do {
-    swapped = false;
-    for (let i = 0; i < arr.length - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-        swapped = true;
-      }
+function levelOrder(root) {
+  if (!root) return [];
+  const result = [];
+  const queue = [root];
+  while (queue.length) {
+    const size = queue.length;
+    const level = [];
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      level.push(node.val);
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
     }
-  } while (swapped);
-  return arr;
-};
+    result.push(level);
+  }
+  return result;
+}
